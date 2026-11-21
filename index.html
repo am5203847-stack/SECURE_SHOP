@@ -1,0 +1,12 @@
+<!DOCTYPE html><html><body style="font-family:sans-serif;padding:20px">
+<h2>Secure Shop - Lab</h2>
+<input id="e" placeholder="email" value="adel@test.com"><input id="p" type="password" placeholder="password" value="12345678">
+<button onclick="login()">Login</button>
+<button onclick="load()">Load Products</button>
+<button onclick="orders()">My Orders</button>
+<div id="out" style="margin-top:20px;border:1px solid #ccc;padding:10px"></div>
+<script>
+async function login(){let r=await fetch('/login',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({email:e.value,password:p.value})});out.innerText=await r.text()}
+async function load(){let r=await fetch('/products');let d=await r.json();out.innerHTML=''; d.forEach(x=>{let d1=document.createElement('div'); d1.textContent=x.name+' - '+x.price; out.appendChild(d1)})(x=>`<div>${x.name} - ${x.price}</div>`).join('')}
+async function orders(){let r=await fetch('/myorders');out.innerText=await r.text()}
+</script></body></html>
