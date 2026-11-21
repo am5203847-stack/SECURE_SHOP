@@ -76,5 +76,9 @@ def myorders():
     db = get_db()
     rows = db.execute("SELECT products.name FROM orders JOIN products ON orders.product_id=products.id WHERE orders.user_id=?", (session['user_id'],)).fetchall()
     return jsonify([str(escape(r[0])) for r in rows])
+@app.route('/admin')
+def admin():
+    return open('admin.html').read()
+
 if __name__=='__main__':
     app.run(host='127.0.0.1', port=5000)
